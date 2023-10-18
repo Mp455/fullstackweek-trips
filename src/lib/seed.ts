@@ -10,6 +10,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Amalfi, Itália",
+        locationDescription:
+          "Amalfi é uma cidade costeira na região da Campânia, Itália. Famosa por sua deslumbrante costa e mar cristalino, é um destino turístico muito procurado.",
         countryCode: "IT",
         coverImage:
           "https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-4.0.3&ixid=M3wxMA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -37,6 +39,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "New York, Estados Unidos",
+        locationDescription:
+          "Nova York é uma cidade icônica nos Estados Unidos. É conhecida por seus arranha-céus imponentes, a Estátua da Liberdade e a agitada Times Square.",
         countryCode: "US",
         coverImage:
           "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -64,6 +68,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Florença, Itália",
+        locationDescription:
+          " Florença é uma cidade histórica na Toscana, Itália. É famosa por sua arquitetura renascentista, obras de arte e museus de classe mundial.",
         countryCode: "IT",
         coverImage:
           "https://images.unsplash.com/photo-1534612899740-55c821a90129?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -91,6 +97,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Lago Sereno, Suíça",
+        locationDescription:
+          "O Lago Sereno é um belo lago na Suíça, cercado por paisagens montanhosas e vilarejos pitorescos. É um destino tranquilo e natural.",
         countryCode: "CH",
         coverImage:
           "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
@@ -118,6 +126,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Madrid, Espanha",
+        locationDescription:
+          "Madrid é a capital da Espanha e é conhecida por sua vibrante vida noturna, museus de arte de renome, como o Museu do Prado, e arquitetura impressionante.",
         countryCode: "ES",
         coverImage:
           "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -145,6 +155,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Montreal, Canadá",
+        locationDescription:
+          "Montreal é uma cidade cosmopolita no Canadá, com uma mistura de culturas e idiomas. É famosa por festivais, gastronomia e arquitetura histórica.",
         countryCode: "CA",
         coverImage:
           "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -172,6 +184,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Oslo, Noruega",
+        locationDescription:
+          "Oslo é a capital da Noruega e está situada na costa. É conhecida por sua arquitetura moderna, museus e acesso a belas paisagens naturais.",
         countryCode: "NO",
         coverImage:
           "https://images.unsplash.com/photo-1610530531783-56a4e92a3305?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
@@ -199,6 +213,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Amsterdam, Holanda",
+        locationDescription:
+          "Amsterdã é a capital dos Países Baixos e é famosa por seus canais, arquitetura histórica e atmosfera liberal.",
         countryCode: "NL",
         coverImage:
           "https://images.unsplash.com/photo-1500076656116-558758c991c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
@@ -226,6 +242,8 @@ async function main() {
         startDate: new Date("2023-07-03"),
         endDate: new Date("2023-07-30"),
         location: "Paris, França",
+        locationDescription:
+          "Paris é a capital da França e é conhecida como a Cidade do Amor. É famosa por sua arquitetura icônica, museus de classe mundial e culinária requintada.",
         countryCode: "FR",
         coverImage:
           "https://images.unsplash.com/photo-1515496281361-241a540151a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
