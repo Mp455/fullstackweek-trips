@@ -1,33 +1,41 @@
 "use client";
-
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import React from "react";
-import { Trip } from "@prisma/client";
 import Button from "@/components/Button";
 import { useForm, Controller } from "react-hook-form";
 
 interface TripReservationProps {
-  trip: Trip;
+  tripStartDate: Date;
+  tripEndDate: Date;
+  maxGuests: number;
 }
 
 interface TripReservationForm {
-  guests: Number;
-  startDate: Date;
-  endDate: Date;
+  guests: number;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
-const TripReservation = ({ trip }: TripReservationProps) => {
+const TripReservation = ({
+  tripStartDate,
+  tripEndDate,
+  maxGuests,
+}: TripReservationProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = useForm<TripReservationForm>();
 
   const onSubmit = (data: any) => {
     console.log(data);
   };
+
+  const startDate = watch("startDate");
+  const endDate = watch("endDate");
 
   return (
     <div className="flex flex-col px-5 pb-10 ">
@@ -49,6 +57,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
               selected={field.value}
               placeholderText="Data de Início"
               className="w-full"
+              minDate={tripStartDate}
             />
           )}
         />
@@ -69,6 +78,8 @@ const TripReservation = ({ trip }: TripReservationProps) => {
               selected={field.value}
               placeholderText="Data Final"
               className="w-full"
+              maxDate={tripEndDate}
+              minDate={startDate ?? tripStartDate}
             />
           )}
         />
@@ -80,7 +91,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
             message: "Número de hóspedes é obrigatório.",
           },
         })}
-        placeholder={`Número de hóspedes(max: ${trip.maxGuests})`}
+        placeholder={`Número de hóspedes (max: ${maxGuests})`}
         className="mt-4"
         error={!!errors?.guests}
         errorMessage={errors?.guests?.message}
