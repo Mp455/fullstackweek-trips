@@ -1,10 +1,12 @@
 "use client";
+
+import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
-import React from "react";
-import Button from "@/components/Button";
-import { useForm, Controller } from "react-hook-form";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
   tripId: string;
@@ -22,9 +24,9 @@ interface TripReservationForm {
 
 const TripReservation = ({
   tripId,
+  maxGuests,
   tripStartDate,
   tripEndDate,
-  maxGuests,
   pricePerDay,
 }: TripReservationProps) => {
   const {
@@ -36,8 +38,10 @@ const TripReservation = ({
     setError,
   } = useForm<TripReservationForm>();
 
+  const router = useRouter();
+
   const onSubmit = async (data: TripReservationForm) => {
-    const response = await fetch("http://localhost:3000/api/trips/checks", {
+    const response = await fetch("/api/trips/check", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
@@ -47,6 +51,7 @@ const TripReservation = ({
         })
       ),
     });
+
     const res = await response.json();
 
     if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
@@ -54,6 +59,7 @@ const TripReservation = ({
         type: "manual",
         message: "Esta data já está reservada.",
       });
+
       return setError("endDate", {
         type: "manual",
         message: "Esta data já está reservada.",
@@ -61,25 +67,35 @@ const TripReservation = ({
     }
 
     if (res?.error?.code === "INVALID_START_DATE") {
-      setError("startDate", {
+      return setError("startDate", {
         type: "manual",
-        message: "Data inválida",
+        message: "Data inválida.",
       });
     }
 
     if (res?.error?.code === "INVALID_END_DATE") {
       return setError("endDate", {
         type: "manual",
-        message: "Data inválida",
+        message: "Data inválida.",
       });
     }
+
+    router.push(
+      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
+        data.guests
+      }`
+    );
   };
 
   const startDate = watch("startDate");
   const endDate = watch("endDate");
 
   return (
-    <div className="flex flex-col px-5 pb-10 ">
+    <div className="flex flex-col px-5 lg:min-w-[380px] lg:p-5 lg:border-grayLighter lg:border lg:rounded-lg lg:shadow-md">
+      <p className="text-xl hidden text-primaryDarker mb-4 lg:block">
+        <span className="font-semibold">R${pricePerDay}</span> por dia
+      </p>
+
       <div className="flex gap-4">
         <Controller
           name="startDate"
@@ -102,6 +118,7 @@ const TripReservation = ({
             />
           )}
         />
+
         <Controller
           name="endDate"
           rules={{
@@ -125,6 +142,7 @@ const TripReservation = ({
           )}
         />
       </div>
+
       <Input
         {...register("guests", {
           required: {
@@ -133,7 +151,7 @@ const TripReservation = ({
           },
           max: {
             value: maxGuests,
-            message: `Número de hóspedes não pode ser maior que ${maxGuests}`,
+            message: `Número de hóspedes não pode ser maior que ${maxGuests}.`,
           },
         })}
         placeholder={`Número de hóspedes (max: ${maxGuests})`}
@@ -142,16 +160,17 @@ const TripReservation = ({
         errorMessage={errors?.guests?.message}
         type="number"
       />
-      <div className="flex justify-between mt-3">
-        <p className="font-medium text-sm text-primaryDarker">Total:</p>
 
+      <div className="flex justify-between mt-3">
+        <p className="font-medium text-sm text-primaryDarker">Total: </p>
         <p className="font-medium text-sm text-primaryDarker">
           {startDate && endDate
-            ? `R$${differenceInDays(endDate, startDate) * pricePerDay},00`
-            : "R$ 0,00"}
+            ? `R$${differenceInDays(endDate, startDate) * pricePerDay}` ?? 1
+            : "R$0"}
         </p>
       </div>
-      <div className="pb-10 border-b border-grayLighter w-full">
+
+      <div className="pb-10 border-b border-b-grayLighter w-full lg:border-none lg:pb-0">
         <Button
           onClick={() => handleSubmit(onSubmit)()}
           className="mt-3 w-full"
