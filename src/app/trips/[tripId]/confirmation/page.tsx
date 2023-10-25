@@ -34,9 +34,15 @@ const TripConfirmation = ({
           endDate: seachParams.get("endDate"),
         }),
       });
-      const { trip } = await response.json();
+
+      const res = await response.json();
+
+      if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
+        return router.push("/");
+      }
+
       setTrip(trip);
-      setTotalPrice(totalPrice);
+      setTotalPrice(res.totalPrice);
     };
 
     if (status === "unauthenticated") {
