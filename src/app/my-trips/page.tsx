@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Prisma } from "@prisma/client";
+import UserReservationItem from "./components/UserReservationItem";
 
 const MyTrips = () => {
   const [reservations, setReservations] = useState<
@@ -39,6 +40,9 @@ const MyTrips = () => {
       <h1 className="font-semibold text-primaryDarker text-xl lg:mb-5">
         Minhas Viagens
       </h1>
+      {reservations.map((reservations) => (
+        <UserReservationItem reservation={reservations} key={reservations.id} />
+      ))}
     </div>
   );
 };
