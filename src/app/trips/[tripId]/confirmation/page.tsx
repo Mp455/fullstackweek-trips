@@ -36,12 +36,14 @@ const TripConfirmation = ({
       });
 
       const res = await response.json();
+      console.log(res);
+      console.log(response);
 
-      if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
+      if (res?.error) {
         return router.push("/");
       }
 
-      setTrip(trip);
+      setTrip(res.trip);
       setTotalPrice(res.totalPrice);
     };
 
