@@ -45,6 +45,7 @@ const MyTrips = () => {
       {reservations.length > 0 ? (
         reservations.map((reservations) => (
           <UserReservationItem
+            fetchReservations={fetchReservations}
             reservation={reservations}
             key={reservations.id}
           />
@@ -55,7 +56,7 @@ const MyTrips = () => {
             Você ainda não tem nenhuma reserva...
           </p>
           <Link href={"/"}>
-            <Button className="w-full mt-2">Fazer reserva</Button>
+            <Button className="w-full mt-2 ">Fazer reserva</Button>
           </Link>
         </div>
       )}
