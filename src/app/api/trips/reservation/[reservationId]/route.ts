@@ -9,7 +9,7 @@ export async function DELETE(
     return {
       status: 400,
       body: {
-        message: "Missing userId",
+        message: "Missing reservationId",
       },
     };
   }
@@ -19,5 +19,6 @@ export async function DELETE(
       id: reservationId,
     },
   });
+
   return new NextResponse(JSON.stringify(reservation), { status: 200 });
 }
