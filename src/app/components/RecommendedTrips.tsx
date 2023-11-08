@@ -3,9 +3,7 @@ import { Trip } from "@prisma/client";
 import React from "react";
 
 const RecommendedTrips = async () => {
-  const data = await fetch("http://localhost:3000/hello").then((response) =>
-    response.json()
-  );
+  const data = await fetch("/hello").then((response) => response.json());
 
   return (
     <div className="container mx-auto p-5">
