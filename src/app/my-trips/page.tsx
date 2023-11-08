@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Prisma } from "@prisma/client";
+import Link from "next/link";
+
 import UserReservationItem from "./components/UserReservationItem";
 import Button from "@/components/Button";
-import Link from "next/link";
 
 const MyTrips = () => {
   const [reservations, setReservations] = useState<
@@ -43,20 +44,23 @@ const MyTrips = () => {
         Minhas Viagens
       </h1>
       {reservations.length > 0 ? (
-        reservations.map((reservations) => (
-          <UserReservationItem
-            fetchReservations={fetchReservations}
-            reservation={reservations}
-            key={reservations.id}
-          />
-        ))
+        <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-14">
+          {reservations?.map((reservation) => (
+            <UserReservationItem
+              fetchReservations={fetchReservations}
+              key={reservation.id}
+              reservation={reservation}
+            />
+          ))}
+        </div>
       ) : (
-        <div className="flex flex-col">
-          <p className="font-medium text-primaryDarker mt-2">
-            Você ainda não tem nenhuma reserva...
+        <div className="flex flex-col lg:max-w-[500px]">
+          <p className="mt-2 font-medium text-primaryDarker">
+            Você ainda não tem nenhuma reserva! =(
           </p>
-          <Link href={"/"}>
-            <Button className="w-full mt-2 ">Fazer reserva</Button>
+
+          <Link href="/">
+            <Button className="w-full mt-2 lg:mt-5">Fazer reserva</Button>
           </Link>
         </div>
       )}
