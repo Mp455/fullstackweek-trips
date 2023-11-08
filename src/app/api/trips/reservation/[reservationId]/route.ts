@@ -1,19 +1,17 @@
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function DELETE(
   _request: Request,
   { params: { reservationId } }: { params: { reservationId: string } }
-) {
+): Promise<NextResponse> {
   if (!reservationId) {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         message: "Missing reservationId",
       }),
       {
         status: 400,
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
   }
@@ -24,15 +22,12 @@ export async function DELETE(
     },
   });
 
-  return new Response(
+  return new NextResponse(
     JSON.stringify({
       message: "Reservation deleted successfully",
     }),
     {
-      status: 204, // Status de resposta para uma exclusão bem-sucedida
-      headers: {
-        "Content-Type": "application/json",
-      },
+      status: 204,
     }
   );
 }
