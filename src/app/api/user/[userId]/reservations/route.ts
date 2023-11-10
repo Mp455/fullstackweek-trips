@@ -4,16 +4,13 @@ import { NextResponse } from "next/server";
 export async function GET(
   request: Request,
   { params: { userId } }: { params: { userId: string } }
-) {
+): Promise<Response> {
   const { searchParams } = new URL(request.url);
 
   if (!userId) {
-    return {
+    return new Response(JSON.stringify({ message: "Missing userId" }), {
       status: 400,
-      body: {
-        message: "Missing userId",
-      },
-    };
+    });
   }
 
   const reservations = await prisma.tripReservation.findMany({
