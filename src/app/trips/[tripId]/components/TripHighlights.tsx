@@ -12,7 +12,7 @@ const TripHighlights = ({ highlights }: TripHighlightsProps) => {
 
       <div className="flex flex-wrap gap-y-3">
         {highlights.map((highlight, index) => (
-          <div className="flex items-center gap-2 w-1/2">
+          <div key={index} className="flex items-center gap-2 w-1/2">
             <AiOutlineCheckCircle size={20} className="text-primary" />
             <p className="text-grayPrimary text-xs">{highlight}</p>
           </div>
