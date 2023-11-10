@@ -56,7 +56,7 @@ const MyTrips = () => {
       ) : (
         <div className="flex flex-col lg:max-w-[500px]">
           <p className="mt-2 font-medium text-primaryDarker">
-            Você ainda não tem nenhuma reserva! =(
+            Você ainda não tem nenhuma reserva!
           </p>
 
           <Link href="/">

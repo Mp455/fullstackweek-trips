@@ -9,11 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(request: Request) {
   const sig = request.headers.get("stripe-signature")!;
 
-  console.log({ sig });
-
   const text = await request.text();
-
-  console.log({ text });
 
   const event = stripe.webhooks.constructEvent(
     text,
@@ -24,18 +20,30 @@ export async function POST(request: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as any;
 
-    console.log({ session });
-    await prisma.tripReservation.create({
-      data: {
-        startDate: new Date(session.metadata.startDate),
-        endDate: new Date(session.metadata.endDate),
-        userId: session.metadata.userId,
-        tripId: session.metadata.tripId,
-        totalPaid: Number(session.metadata.totalPrice),
-        guests: Number(session.metadata.guests),
-      },
-    });
-  }
+    if (!session.id) {
+      console.error("Erro ao criar a sessão:", session);
+      return new NextResponse(JSON.stringify({ received: false }), {
+        status: 500,
+      });
+    }
 
+    try {
+      await prisma.tripReservation.create({
+        data: {
+          startDate: new Date(session.metadata.startDate),
+          endDate: new Date(session.metadata.endDate),
+          userId: session.metadata.userId,
+          tripId: session.metadata.tripId,
+          totalPaid: Number(session.metadata.totalPrice),
+          guests: Number(session.metadata.guests),
+        },
+      });
+    } catch (error) {
+      console.error("Erro ao salvar a reserva de viagens:", error);
+      return new NextResponse(JSON.stringify({ received: false }), {
+        status: 500,
+      });
+    }
+  }
   return new NextResponse(JSON.stringify({ received: true }), { status: 200 });
 }
